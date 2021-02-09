@@ -1,11 +1,11 @@
 const data_container = document.getElementById('foods');
 const searchBtn = document.getElementById('searchBtn');
-const warning = document.getElementById('warning');
+const message = document.getElementById('message');
 const details = document.getElementById('details');
 
 //just showing some foods at window load so it does not look void
 window.onload = function () {
-    warning.style.display = 'none';
+    message.style.display = 'none';
     details.style.display = 'none';
     getFoodDetails('a');
 };
@@ -16,11 +16,11 @@ searchBtn.addEventListener('click', function(){
     data_container.innerHTML = '';
 
     if (keyword === '') {
-        warning.style.display = 'block';
+        message.style.display = 'block';
         details.style.display = 'none';
     }else{
         getFoodDetails(keyword);
-        warning.style.display = 'none';
+        message.style.display = 'none';
         details.style.display = 'none';
     }
 })
@@ -46,7 +46,7 @@ function getFoodDetails(key){
                 foodsDiv.appendChild(foodDiv);
             })
         }else{
-            warning.style.display = 'block';
+            message.style.display = 'block';
         }
     })
 }
@@ -61,7 +61,7 @@ const foodDetails = name => {
 }
 
 const renderFoodInfo = food => {
-        data_container.style.display = 'none';
+        data_container.innerHTML = '';
         details.style.display = 'block';
 
         const ingredients = [];
@@ -75,11 +75,15 @@ const renderFoodInfo = food => {
 
         const detailsDiv = document.getElementById('details');
         detailsDiv.innerHTML = `
+            <div class="details-container">
                 <img class="img-fluid rounded mb-4" src="${food.strMealThumb}" alt="">
                 <h4 class="h4-text py-4 px-2 mb-0">${food.strMeal}</h4>
-                <h5 class="pt-3 pb-2">Ingredients</h5>
-                <ul class="list-unstyled mb-0">
-                    ${ingredients.map((ingredient) => `<li><i class="icon-check icons"></i>${ingredient}</li>`).join('')}
+                <h5 class="h5-text pt-3 pb-2">Ingredients</h5>
+                <ul class="mb-0">
+                    ${ingredients.map((ingredient) => `
+                        <li><i class="fa fa-check-square"></i>${ingredient}</li>
+                    `).join('')}
                 </ul>
+            </div>
         `
 }

@@ -52,9 +52,13 @@ body {
 }
 
 .h4-text {
-	font-size: 36px;
+	font-size: 40px;
 	font-weight: 700;
-	padding-left: 5% !important;
+	padding-left: 0 !important;
+}
+
+.h5-text {
+	font-size: 30px;
 }
 
 #foods {
@@ -65,4 +69,18 @@ body {
 	width: 50%;
 	margin: 0 auto;
 	background-color: #fff;
+	margin-bottom: 200px;
+}
+
+.details-container {
+	padding: 20px;
+}
+
+.details-container ul li {
+	list-style: none;
+}
+
+.details-container ul li i {
+	padding-right: 15px;
+	color: #3b2d64;
 }
