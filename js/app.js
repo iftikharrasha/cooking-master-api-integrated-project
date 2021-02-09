@@ -3,11 +3,18 @@ const searchBtn = document.getElementById('searchBtn');
 const warning = document.getElementById('warning');
 const details = document.getElementById('details');
 
+//just showing some foods at window load so it does not look void
+window.onload = function () {
+    warning.style.display = 'none';
+    details.style.display = 'none';
+    getFoodDetails('a');
+};
+
 searchBtn.addEventListener('click', function(){
     const keyword = document.getElementById('keyword').value;
     document.getElementById('keyword').value = '';
     data_container.innerHTML = '';
-    // console.log("clicked");
+
     if (keyword === '') {
         warning.style.display = 'block';
         details.style.display = 'none';
@@ -22,10 +29,9 @@ function getFoodDetails(key){
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${key}`)
     .then(res => res.json())
     .then(data => {
-        // console.log(data);
         const foods = data.meals;
-        // console.log(foods);
         const foodsDiv = document.getElementById('foods');
+
         if(foods != null){
             foods.map(food => {
                 const foodDiv = document.createElement('div');
@@ -50,28 +56,30 @@ const foodDetails = name => {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${name}`)
     .then(res => res.json())
     .then(data => {
-        console.log(data);
-        data_container.style.display = 'none';
-
-        
+        renderFoodInfo(data.meals[0]);
     })
 }
 
-//just showing some foods at window load so it does not look void
-window.onload = function () {
-    warning.style.display = 'none';
-    details.style.display = 'none';
-    getFoodDetails('a');
-};
+const renderFoodInfo = food => {
+        data_container.style.display = 'none';
+        details.style.display = 'block';
 
+        const ingredients = [];
+        for (let i = 1; i <= 20; i++) {
+            if (food[`strIngredient${i}`]) {
+                ingredients.push(`${food[`strIngredient${i}`]} - ${food[`strMeasure${i}`]}`);
+            } else {
+                break;
+            }
+        }
 
-
-
-/* <div id="foodsDetails">
-        <img class="img-fluid rounded mb-4" src="" alt="">
-        <h4>Pizza Express Margherita</h4>
-        <h5 class="pt-3 pb-2">Ingredients</h5>
-        <ul class="list-unstyled mb-0">
-            <li><i class="fa fa-check"></i>Water - 150ml</li>
-        </ul>
-    </div> */
+        const detailsDiv = document.getElementById('details');
+        detailsDiv.innerHTML = `
+                <img class="img-fluid rounded mb-4" src="${food.strMealThumb}" alt="">
+                <h4 class="h4-text py-4 px-2 mb-0">${food.strMeal}</h4>
+                <h5 class="pt-3 pb-2">Ingredients</h5>
+                <ul class="list-unstyled mb-0">
+                    ${ingredients.map((ingredient) => `<li><i class="icon-check icons"></i>${ingredient}</li>`).join('')}
+                </ul>
+        `
+}
