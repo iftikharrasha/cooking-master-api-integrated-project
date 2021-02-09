@@ -45,3 +45,18 @@ body {
 	background-color: #3b2d64;
 	color: white;
 }
+
+.h2-text {
+	font-size: 22px;
+	background-color: white;
+}
+
+#foods {
+	cursor: pointer;
+}
+
+#details {
+	flex-direction: column;
+	width: 100%;
+	background-color: #fff;
+}
