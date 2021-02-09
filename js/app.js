@@ -1,4 +1,4 @@
-const data_container = document.getElementById('foods');
+const allFoodsHere = document.getElementById('foods');
 const searchBtn = document.getElementById('searchBtn');
 const message = document.getElementById('message');
 const details = document.getElementById('details');
@@ -13,7 +13,7 @@ window.onload = function () {
 searchBtn.addEventListener('click', function(){
     const keyword = document.getElementById('keyword').value;
     document.getElementById('keyword').value = '';
-    data_container.innerHTML = '';
+    allFoodsHere.innerHTML = '';
 
     if (keyword === '') {
         message.style.display = 'block';
@@ -61,7 +61,7 @@ const foodDetails = name => {
 }
 
 const renderFoodInfo = food => {
-        data_container.innerHTML = '';
+        allFoodsHere.innerHTML = '';
         details.style.display = 'block';
 
         const ingredients = [];
